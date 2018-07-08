@@ -8,7 +8,11 @@
       "sourceRoot": "src/web-app",
       "projectType": "application",
       "prefix": "app",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -23,7 +27,9 @@
               "src/web-app/assets",
               "src/web-app/manifest.json"
             ],
-            "styles": ["src/web-app/styles.css"],
+            "styles": [
+              "src/web-app/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -71,7 +77,9 @@
             "polyfills": "src/web-app/polyfills.ts",
             "tsConfig": "src/web-app/tsconfig.spec.json",
             "karmaConfig": "src/web-app/karma.conf.js",
-            "styles": ["styles.css"],
+            "styles": [
+              "styles.css"
+            ],
             "scripts": [],
             "assets": [
               "src/web-app/favicon.ico",
@@ -87,7 +95,9 @@
               "src/web-app/tsconfig.app.json",
               "src/web-app/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
@@ -107,11 +117,14 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
     }
   },
-  "defaultProject": "tour-of-heroes"
+  "defaultProject": "tour-of-heroes",
+  
 }

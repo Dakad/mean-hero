@@ -1,0 +1,43 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    {{ pageTitle }}
+  </div>
+
+  <div class="panel-body">
+    <form class="form-horizontal" novalidate #searchForm="ngForm">
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="inputLineDest">Line Destination</label>
+
+        <div class="col-md-8">
+          <input class="form-control" id="inputLineDest" type="text" name="destination" ngModel />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="inputLineNumber">Number</label>
+
+        <div class="col-md-8">
+          <input class="form-control" id="inputLineNumber" type="text" name="number" ngModel />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-2 control-label" for="inputLineMode">Mode</label>
+
+        <div class="col-md-8">
+          <input class="form-control" id="inputLineMode" type="radio" name="mode" ngModel />
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+  <div class="panel-footer">
+    <a class="btn btn-primary" style="width:80px;margin-right:10px" (click)="search(searchForm.value)">
+      Search
+    </a>
+  </div>
+
+  <div class="has-error" *ngIf="errorMessage">{{errorMessage}}</div>
+</div>

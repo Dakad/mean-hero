@@ -19,6 +19,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: []
+  exports: [RouterModule]
 })
 export class HeroesRoutingModule {}

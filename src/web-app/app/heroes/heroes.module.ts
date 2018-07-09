@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
+import { InMemoryDataService } from './heroes.mock';
 
 import {
   MatButtonModule,
@@ -15,6 +18,7 @@ import {
   MatAutocompleteModule
 } from '@angular/material';
 
+import { environment } from 'src/web-app/environments/environment';
 import { HeroesRoutingModule } from './heroes-routing.module';
 
 import { HeroListComponent } from './list/hero-list.component';
@@ -43,7 +47,12 @@ const routes: Routes = [
     MatIconModule,
     MatDividerModule,
     MatAutocompleteModule,
-    HeroesRoutingModule
+    HeroesRoutingModule,
+    environment.production
+      ? []
+      : HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
+          dataEncapsulation: false
+        })
   ],
   declarations: [
     HeroListComponent,

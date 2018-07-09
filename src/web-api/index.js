@@ -10,21 +10,36 @@ const Bluebird = require('bluebird'); // eslint-disable-line no-global-assign
 // plugin bluebird promise in mongoose
 mongoose.Promise = Bluebird;
 
-// connect to mongo db
-const mongoUri = config.mongo.host;
-mongoose.connect(
-  mongoUri,
-  { server: { socketOptions: { keepAlive: 1 } } }
-);
-mongoose.connection.on('error', () => {
-  throw new Error(`[MONGODB] Unable to connect to database : ${mongoUri}`);
-});
+/**
+ * Async function to init MongoDB and Express
+ */
+export async function start() {
+  // connect to mongo db
+  const mongoUri = config.mongo.host;
+  let msg = '';
+  try {
+    await mongoose.connect(
+      mongoUri,
+      { keepAlive: 1 }
+    );
+    msg = `[MONGODB] Connected to ${mongoUri}\n`;
+  } catch (error) {
+    throw new Error(`[MONGODB] Unable to connect to database : ${mongoUri}`);
+  }
 
-// listen on port config.port
-app.listen(config.port, () => {
-  console.info(
-    `[SERVER] Server started on port ${config.port} (${config.env})`
-  ); // eslint-disable-line no-console
-});
-
-export default app;
+  // listen on port config.port
+  try {
+    await Bluebird.promisify(app.listen);
+    return (
+      msg + `[SERVER] Server started on port ${config.port} (${config.env})`
+    );
+  } catch (err) {
+    if (err.code === 'EADDRINUSE') {
+      throw new Error(
+        `[SERVER] Address ${config.port} already in use (${config.env})`
+      );
+    } else {
+      throw err;
+    }
+  }
+}

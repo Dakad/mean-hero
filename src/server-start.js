@@ -1,3 +1,10 @@
 require('babel-register');
 require('babel-polyfill');
-require('./web-api');
+const WebApi = require('./web-api');
+
+WebApi.start()
+  .then(console.info)
+  .catch(e => {
+    console.error(e);
+    process.abort();
+  });

@@ -1,6 +1,7 @@
 import express from 'express';
 import validate from 'express-validation';
 import expressJwt from 'express-jwt';
+import httpStatus from 'http-status';
 
 import config from '../config/config';
 import { Auth } from '../config/param-validation';
